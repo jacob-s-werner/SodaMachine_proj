@@ -37,7 +37,7 @@ namespace SodaMachine
                 coinChosen = GetCoinFromWallet(coinChosenName);
                 coinsToPayWith.Add(coinChosen);
 
-                Console.WriteLine("\n To spend on the machine:");
+                Console.WriteLine("\nTo spend on the machine:");
                 UserInterface.DiplayTotalValueOfCoins(coinsToPayWith);
                 keepGatheringCoins = UserInterface.ContinuePrompt("Do you want to keep adding coins to spend in the Soda Machine? (y/n)");
             }
@@ -58,7 +58,6 @@ namespace SodaMachine
                     return coin;
                 }
             }
-
             return coin;
         }
         //Takes in a list of coin objects to add into the customers wallet.
