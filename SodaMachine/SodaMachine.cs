@@ -53,11 +53,13 @@ namespace SodaMachine
             string customerCanSelection = "";
             Can customerCanSelected;
             List<Coin> paymentFromCustomer;
-            
+
+            customerCanSelection = UserInterface.SodaSelection(_inventory);
+
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
             paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
             CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
-
+            
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
