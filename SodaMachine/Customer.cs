@@ -30,24 +30,31 @@ namespace SodaMachine
             string coinChosenName;
             Coin coinChosen;
             List<Coin> coinsToPayWith = new List<Coin>();
+            List<Coin> coinsInWallet = Wallet.Coins;
 
             while (keepGatheringCoins)
             {
-                coinChosenName = UserInterface.CoinSelection(selectedCan, Wallet.Coins);
+                coinChosenName = UserInterface.CoinSelection(selectedCan, coinsInWallet);
                 coinChosen = GetCoinFromWallet(coinChosenName);
                 coinsToPayWith.Add(coinChosen);
 
+                coinsInWallet.Remove(coinChosen);
                 Console.WriteLine("\n To spend on the machine:");
                 UserInterface.DiplayTotalValueOfCoins(coinsToPayWith);
                 keepGatheringCoins = UserInterface.ContinuePrompt("Do you want to keep adding coins to spend in the Soda Machine? (y/n)");
             }
+            
             return coinsToPayWith;
         }
         //Returns a coin object from the wallet based on the name passed into it.
         //Returns null if no coin can be found
         public Coin GetCoinFromWallet(string coinName)
         {
-            
+            Coin coin;
+
+
+
+            return coin;
         }
         //Takes in a list of coin objects to add into the customers wallet.
         public void AddCoinsIntoWallet(List<Coin> coinsToAdd)
