@@ -53,7 +53,7 @@ namespace SodaMachine
             string customerCanSelection = "";
             Can customerCanSelected;
             List<Coin> paymentFromCustomer;
-
+            
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
             paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
             CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
@@ -62,7 +62,9 @@ namespace SodaMachine
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
         {
-          
+            Can matchingCan;
+            
+            return matchingCan;
         }
 
         //This is the main method for calculating the result of the transaction.
