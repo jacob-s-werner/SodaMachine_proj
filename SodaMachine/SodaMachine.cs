@@ -64,8 +64,15 @@ namespace SodaMachine
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
         {
-            Can matchingCan;
-            
+            Can matchingCan = null; //validation is in the Transaction Method already
+
+            foreach (Can can in _inventory)
+            {
+                if (can.Name == nameOfSoda)
+                {
+                    matchingCan = can;
+                }
+            }
             return matchingCan;
         }
 
