@@ -50,7 +50,14 @@ namespace SodaMachine
         //pass payment to the calculate transaction method to finish up the transaction based on the results.
         private void Transaction(Customer customer)
         {
-           
+            string customerCanSelection = "";
+            Can customerCanSelected;
+            List<Coin> paymentFromCustomer;
+
+            customerCanSelected = GetSodaFromInventory(customerCanSelection);
+            paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
+            CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
+
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
