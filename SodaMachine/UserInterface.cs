@@ -12,7 +12,7 @@ namespace SodaMachine
         public static bool DisplayWelcomeInstructions(List<Can> sodaOptions)
         {
             OutputText("\nWelcome to the soda machine.  We only take coins as payment \n");
-            OutputText("At a glance, these are the drink options:\n");
+            OutputText("At a glance, these are the drink options: \n");
             PrintOptions(sodaOptions);
             bool willProceed = ContinuePrompt("\nWould you like to make a purchase? (y/n)");
             if (willProceed == true)
@@ -36,19 +36,19 @@ namespace SodaMachine
         }
         //Method for getting user input for the selected coin.
         //Uses a tuple to help group valadation boolean and normalized selection name.
-        public static string CoinSelection(Can selectedCan, List<Coin> paymnet)
+        public static string CoinSelection(Can selectedCan, List<Coin> payment)
         {
             Tuple<bool, string> validatedSelection;
             do
             {
                 DisplayCost(selectedCan);
-                DiplayTotalValueOfCoins(paymnet);
+                DisplayTotalValueOfCoins(payment);
                 Console.WriteLine("\n");
                 Console.WriteLine("Enter -1- for Quarter");
                 Console.WriteLine("Enter -2- for Dime");
                 Console.WriteLine("Enter -3- for Nickel");
                 Console.WriteLine("Enter -4- for Penny");
-                Console.WriteLine("Enter -5- when finishd to deposit payment");
+                Console.WriteLine("Enter -5- when finished to deposit payment");
                 int.TryParse(Console.ReadLine(), out int selection);
                 validatedSelection = ValidateCoinChoice(selection);
                
@@ -176,7 +176,7 @@ namespace SodaMachine
             Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost {selectedSoda.Price} \n");
         }
         //Displays the total value of a list of coins.
-        public static void DiplayTotalValueOfCoins(List<Coin> coinsToTotal)
+        public static void DisplayTotalValueOfCoins(List<Coin> coinsToTotal)
         {
             double totalValue = 0;
             foreach(Coin coin in coinsToTotal)
@@ -191,7 +191,7 @@ namespace SodaMachine
             Console.WriteLine($"Enjoy your {sodaName}.");
             if(changeAmount > 0)
             {
-                Console.WriteLine($"Despensing ${changeAmount}");
+                Console.WriteLine($"Dispensing ${changeAmount}");
             }
             Console.ReadLine();
         }
