@@ -123,7 +123,8 @@ namespace SodaMachine
                 {
                     //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
                     UserInterface.OutputText($"The Vending Machine doesn't have enough change to give back - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your payment of {paymentTotalValue} back from below.");
-                    customer.AddCoinsIntoWallet(GatherChange(paymentTotalValue));
+                    changeGathered = GatherChange(paymentTotalValue);
+                    customer.AddCoinsIntoWallet(changeGathered);
                 }
                 else 
                 {
