@@ -20,7 +20,15 @@ namespace SodaMachine
         //Fills wallet with starting money
         private void FillRegister()
         {
-          
+            Quarter quarter = new Quarter();
+            Dime dime = new Dime();
+            Nickel nickel = new Nickel();
+            Penny penny = new Penny();
+
+            InitialDepositOfCoinsIntoWallet(quarter,14);
+            InitialDepositOfCoinsIntoWallet(dime, 11);
+            InitialDepositOfCoinsIntoWallet(nickel, 6);
+            InitialDepositOfCoinsIntoWallet(penny, 10);
         }
         private void InitialDepositOfCoinsIntoWallet(Coin coin, int numberOfCoinsToDeposit)
         {
