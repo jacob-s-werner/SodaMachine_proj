@@ -22,5 +22,13 @@ namespace SodaMachine
         {
           
         }
+        private void InitialDepositOfCoinsIntoWallet(Coin coin, int numberOfCoinsToDeposit)
+        {
+            for (int i = 0; i < numberOfCoinsToDeposit; i++)
+            {
+                Coins.Add(coin);
+            }
+
+        }
     }
 }
