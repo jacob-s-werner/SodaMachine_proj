@@ -114,9 +114,9 @@ namespace SodaMachine
                 {
                     //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
                     UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
-                    customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
+                    customer.AddCanToBackpack(chosenSoda); 
                     _inventory.Remove(chosenSoda);
-                    customer.AddCoinsIntoWallet(changeGathered); //make method take change out of _register
+                    customer.AddCoinsIntoWallet(changeGathered);
                 }
             }
         }
@@ -164,7 +164,14 @@ namespace SodaMachine
         //If it does have one, return true.  Else, false.
         private bool RegisterHasCoin(string name)
         {
-           
+            foreach (Coin coin in _register)
+            {
+                if (coin.Name == name)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Reusable method to return a coin from the register.
         //Returns null if no coin can be found of that name.
