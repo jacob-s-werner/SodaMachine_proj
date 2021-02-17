@@ -85,7 +85,22 @@ namespace SodaMachine
         //If the payment does not meet the cost of the soda: despense payment back to the customer.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
-           
+            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < TotalCoinValue(payment) - chosenSoda.Price)
+            {
+                //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
+            }
+            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) >= TotalCoinValue(payment) - chosenSoda.Price)
+            {
+                //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
+            }
+            else if (TotalCoinValue(payment) == chosenSoda.Price)
+            {
+                //If the payment is exact to the cost of the soda:  Despense soda.
+            }
+            else
+            {
+                //If the payment does not meet the cost of the soda: despense payment back to the customer.
+            }
         }
         //Takes in the value of the amount of change needed.
         //Attempts to gather all the required coins from the sodamachine's register to make change.
