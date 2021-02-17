@@ -233,9 +233,13 @@ namespace SodaMachine
             }
             DepositCoinsIntoRegister(coinsToDeposit);
         }
-        //private List<Can> AdministratorDepositCansIntoRegister()
-        //{
-
-        //}
+        private void AdministratorDepositCansIntoInventory(Can can, int numberOfCansToDeposit)
+        {
+            for (int i = 0; i < numberOfCansToDeposit; i++)
+            {
+                _inventory.Add(can);
+            }
+            
+        }
     }
 }
