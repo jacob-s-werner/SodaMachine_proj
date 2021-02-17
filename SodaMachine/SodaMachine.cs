@@ -78,12 +78,10 @@ namespace SodaMachine
 
         //This is the main method for calculating the result of the transaction.
         //It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
-        //This is the method that will determine the following:
-        //If the payment does not meet the cost of the soda: despense payment back to the customer.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
             double paymentValueTotal = TotalCoinValue(payment);
-            double changeTotalValue;
+            double changeTotalValue = 0;
 
             if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentValueTotal - chosenSoda.Price)
             {
@@ -95,9 +93,9 @@ namespace SodaMachine
             {
                 //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
                 changeTotalValue = DetermineChange(paymentValueTotal, chosenSoda.Price);
-                DepositCoinsIntoRegister(payment);
                 
-                UserInterface.EndMessage(chosenSoda.Name, paymentValueTotal);
+                DepositCoinsIntoRegister(payment);
+                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
                 customer.AddCoinsIntoWallet(GatherChange(changeTotalValue)); //make method take change out of _register
             }
@@ -105,12 +103,14 @@ namespace SodaMachine
             {
                 //If the payment is exact to the cost of the soda:  Despense soda.
                 DepositCoinsIntoRegister(payment);
-                UserInterface.EndMessage(chosenSoda.Name, paymentValueTotal);
+                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda);
             }
             else
             {
                 //If the payment does not meet the cost of the soda: despense payment back to the customer.
+                UserInterface.OutputText("The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment back from below.");
+                customer.AddCoinsIntoWallet(payment);
             }
         }
         //Takes in the value of the amount of change needed.
