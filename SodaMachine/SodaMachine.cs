@@ -82,37 +82,42 @@ namespace SodaMachine
         {
             double paymentTotalValue = TotalCoinValue(payment);
             double changeTotalValue = 0;
+            List<Coin> changeGathered;
 
             DepositCoinsIntoRegister(payment);
             
-            if (TotalCoinValue(payment) < chosenSoda.Price)
+            if (paymentTotalValue < chosenSoda.Price)
             {
                 //If the payment does not meet the cost of the soda: dispense payment back to the customer.
-                UserInterface.OutputText("The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment back from below.");
+                UserInterface.OutputText($"The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment of {paymentTotalValue} back from below.");
                 customer.AddCoinsIntoWallet(GatherChange(paymentTotalValue));
             }
-            else if (TotalCoinValue(payment) == chosenSoda.Price)
+            else if (paymentTotalValue == chosenSoda.Price)
             {
                 //If the payment is exact to the cost of the soda:  Despense soda.
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda);
                 _inventory.Remove(chosenSoda);
             }
-            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentTotalValue - chosenSoda.Price)
+            else
             {
-                //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
-                UserInterface.OutputText("The Vending Machine doesn't have enough change to give back - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your change back from below.");
-                customer.AddCoinsIntoWallet(payment);
-            }
-            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) >= paymentTotalValue - chosenSoda.Price)
-            {
-                //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
                 changeTotalValue = DetermineChange(paymentTotalValue, chosenSoda.Price);
-                
-                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
-                customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
-                _inventory.Remove(chosenSoda);
-                customer.AddCoinsIntoWallet(GatherChange(changeTotalValue)); //make method take change out of _register
+                changeGathered = GatherChange(changeTotalValue);
+
+                if (changeGathered == null)
+                {
+                    //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
+                    UserInterface.OutputText($"The Vending Machine doesn't have enough change to give back - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your payment of {paymentTotalValue} back from below.");
+                    customer.AddCoinsIntoWallet(GatherChange(paymentTotalValue));
+                }
+                else 
+                {
+                    //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
+                    UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
+                    customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
+                    _inventory.Remove(chosenSoda);
+                    customer.AddCoinsIntoWallet(changeGathered); //make method take change out of _register
+                }
             }
         }
         //Takes in the value of the amount of change needed.
@@ -152,7 +157,7 @@ namespace SodaMachine
             else
             {
                 DepositCoinsIntoRegister(changeGathered);
-                return changeGathered = null;
+                return null;
             }
         }
         //Reusable method to check if the register has a coin of that name.
