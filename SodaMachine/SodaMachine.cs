@@ -97,6 +97,7 @@ namespace SodaMachine
                 DepositCoinsIntoRegister(payment);
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
+                _inventory.Remove(chosenSoda);
                 customer.AddCoinsIntoWallet(GatherChange(changeTotalValue)); //make method take change out of _register
             }
             else if (TotalCoinValue(payment) == chosenSoda.Price)
@@ -105,6 +106,7 @@ namespace SodaMachine
                 DepositCoinsIntoRegister(payment);
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda);
+                _inventory.Remove(chosenSoda);
             }
             else
             {
