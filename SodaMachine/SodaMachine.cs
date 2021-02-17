@@ -79,7 +79,6 @@ namespace SodaMachine
         //This is the main method for calculating the result of the transaction.
         //It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
         //This is the method that will determine the following:
-        //If the payment is exact to the cost of the soda:  Despense soda.
         //If the payment does not meet the cost of the soda: despense payment back to the customer.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
@@ -105,6 +104,9 @@ namespace SodaMachine
             else if (TotalCoinValue(payment) == chosenSoda.Price)
             {
                 //If the payment is exact to the cost of the soda:  Despense soda.
+                DepositCoinsIntoRegister(payment);
+                UserInterface.EndMessage(chosenSoda.Name, paymentValueTotal);
+                customer.AddCanToBackpack(chosenSoda);
             }
             else
             {
