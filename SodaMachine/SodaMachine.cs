@@ -83,7 +83,22 @@ namespace SodaMachine
             double paymentTotalValue = TotalCoinValue(payment);
             double changeTotalValue = 0;
 
-            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentTotalValue - chosenSoda.Price)
+            DepositCoinsIntoRegister(payment);
+            
+            if (TotalCoinValue(payment) < chosenSoda.Price)
+            {
+                //If the payment does not meet the cost of the soda: dispense payment back to the customer.
+                UserInterface.OutputText("The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment back from below.");
+                customer.AddCoinsIntoWallet(GatherChange(paymentTotalValue));
+            }
+            else if (TotalCoinValue(payment) == chosenSoda.Price)
+            {
+                //If the payment is exact to the cost of the soda:  Despense soda.
+                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
+                customer.AddCanToBackpack(chosenSoda);
+                _inventory.Remove(chosenSoda);
+            }
+            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentTotalValue - chosenSoda.Price)
             {
                 //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
                 UserInterface.OutputText("The Vending Machine doesn't have enough change to give back - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your change back from below.");
@@ -94,25 +109,10 @@ namespace SodaMachine
                 //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
                 changeTotalValue = DetermineChange(paymentTotalValue, chosenSoda.Price);
                 
-                DepositCoinsIntoRegister(payment);
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
                 customer.AddCanToBackpack(chosenSoda); // make method take can from _inventory
                 _inventory.Remove(chosenSoda);
                 customer.AddCoinsIntoWallet(GatherChange(changeTotalValue)); //make method take change out of _register
-            }
-            else if (TotalCoinValue(payment) == chosenSoda.Price)
-            {
-                //If the payment is exact to the cost of the soda:  Despense soda.
-                DepositCoinsIntoRegister(payment);
-                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
-                customer.AddCanToBackpack(chosenSoda);
-                _inventory.Remove(chosenSoda);
-            }
-            else
-            {
-                //If the payment does not meet the cost of the soda: despense payment back to the customer.
-                UserInterface.OutputText("The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment back from below.");
-                customer.AddCoinsIntoWallet(payment);
             }
         }
         //Takes in the value of the amount of change needed.
