@@ -39,6 +39,7 @@ namespace SodaMachine
 
                 Console.WriteLine("\nTo spend on the machine:");
                 UserInterface.DisplayTotalValueOfCoins(coinsToPayWith);
+                Console.WriteLine($"Your {selectedCan.Name} costs ${selectedCan.Price}");
                 keepGatheringCoins = UserInterface.ContinuePrompt("Do you want to keep adding coins to spend in the Soda Machine? (y/n)");
             }
             return coinsToPayWith;
