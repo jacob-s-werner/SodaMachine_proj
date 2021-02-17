@@ -107,7 +107,7 @@ namespace SodaMachine
                 changeGathered = GatherChange(paymentTotalValue);
                 customer.AddCoinsIntoWallet(changeGathered);
             }
-            else if (paymentTotalValue == chosenSoda.Price)
+            else if (Math.Round(paymentTotalValue,2) == Math.Round(chosenSoda.Price,2))
             {
                 //If the payment is exact to the cost of the soda:  Despense soda.
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
@@ -146,32 +146,32 @@ namespace SodaMachine
             Coin coinGathered = new Coin();
             double changeNeeded = changeValue;
 
-            while (RegisterHasCoin("Quarter") && changeNeeded >= 0.25)
+            while (RegisterHasCoin("Quarter") && Math.Round(changeNeeded, 2) >= 0.25)
             {
                 coinGathered = GetCoinFromRegister("Quarter"); //_register.Remove(coinGathered); in GetCoinFromRegister
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .25;
             }
-            while (RegisterHasCoin("Dime") && changeNeeded >= 0.10)
+            while (RegisterHasCoin("Dime") && Math.Round(changeNeeded, 2) >= 0.10)
             {
                 coinGathered = GetCoinFromRegister("Dime");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .10;
             }
-            while (RegisterHasCoin("Nickel") && changeNeeded >= 0.05)
+            while (RegisterHasCoin("Nickel") && Math.Round(changeNeeded, 2) >= 0.05)
             {
                 coinGathered = GetCoinFromRegister("Nickel");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .05;
             }
-            while (RegisterHasCoin("Penny") && changeNeeded >= 0.01)
+            while (RegisterHasCoin("Penny") && Math.Round(changeNeeded, 2) >= 0.01)
             {
                 coinGathered = GetCoinFromRegister("Penny");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .01;
             }
 
-            if (TotalCoinValue(changeGathered) == changeValue)
+            if (Math.Round(TotalCoinValue(changeGathered),2) == Math.Round(changeValue,2))
             {
                 return changeGathered;
             }
