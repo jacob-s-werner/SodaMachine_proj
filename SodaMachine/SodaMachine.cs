@@ -39,7 +39,13 @@ namespace SodaMachine
         //A method to fill the sodamachines inventory with soda can objects.
         public void FillInventory()
         {
-            
+            Cola cola = new Cola();
+            RootBeer rootBeer = new RootBeer();
+            OrangeSoda orangeSoda = new OrangeSoda();
+
+            AdministratorDepositCansIntoInventory(cola, 10);
+            AdministratorDepositCansIntoInventory(rootBeer, 10);
+            AdministratorDepositCansIntoInventory(orangeSoda, 1);
         }
         //Method to be called to start a transaction.
         //Takes in a customer which can be passed freely to which ever method needs it.
@@ -239,7 +245,6 @@ namespace SodaMachine
             {
                 _inventory.Add(can);
             }
-            
         }
     }
 }
