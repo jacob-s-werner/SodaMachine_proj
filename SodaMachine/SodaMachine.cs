@@ -70,10 +70,10 @@ namespace SodaMachine
 
             customerCanSelection = UserInterface.SodaSelection(_inventory);
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
-            
+            // give option to take card or coins if/else use userprompt for y/n
+            // use OVERLOADING for calculating transaction with card
             paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
             CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
-            
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
@@ -144,26 +144,31 @@ namespace SodaMachine
         {
             List<Coin> changeGathered = new List<Coin>();
             Coin coinGathered = new Coin();
+            double changeNeeded = changeValue;
 
-            while (RegisterHasCoin("Quarter") && changeValue >= 0.25)
+            while (RegisterHasCoin("Quarter") && changeNeeded >= 0.25)
             {
                 coinGathered = GetCoinFromRegister("Quarter"); //_register.Remove(coinGathered); in GetCoinFromRegister
                 changeGathered.Add(coinGathered);
+                changeNeeded -= .25;
             }
             while (RegisterHasCoin("Dime") && changeValue >= 0.10)
             {
                 coinGathered = GetCoinFromRegister("Dime");
                 changeGathered.Add(coinGathered);
+                changeNeeded -= .10;
             }
             while (RegisterHasCoin("Nickel") && changeValue >= 0.05)
             {
                 coinGathered = GetCoinFromRegister("Nickel");
                 changeGathered.Add(coinGathered);
+                changeNeeded -= .05;
             }
             while (RegisterHasCoin("Penny") && changeValue >= 0.01)
             {
                 coinGathered = GetCoinFromRegister("Penny");
                 changeGathered.Add(coinGathered);
+                changeNeeded -= .01;
             }
 
             if (TotalCoinValue(changeGathered) == changeValue)
