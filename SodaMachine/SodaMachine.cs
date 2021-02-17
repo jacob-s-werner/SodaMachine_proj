@@ -177,7 +177,18 @@ namespace SodaMachine
         //Returns null if no coin can be found of that name.
         private Coin GetCoinFromRegister(string name)
         {
-            
+            Coin coinToGrab;
+
+            foreach (Coin coin in _register)
+            {
+                if (coin.Name == name)
+                {
+                    coinToGrab = coin;
+                    _register.Remove(coin);
+                    return coinToGrab;
+                }
+            }
+            return null;
         }
         //Takes in the total payment amount and the price of can to return the change amount.
         private double DetermineChange(double totalPayment, double canPrice)
