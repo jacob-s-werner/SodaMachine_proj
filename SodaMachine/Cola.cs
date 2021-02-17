@@ -14,7 +14,7 @@ namespace SodaMachine
         public Cola()
         {
             Name = "Cola";
-            price = 0.50;
+            price = 0.35;
         }
 
         //Member Methods (Can Do)
