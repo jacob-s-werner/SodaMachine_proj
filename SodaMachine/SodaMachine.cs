@@ -65,8 +65,8 @@ namespace SodaMachine
         private void Transaction(Customer customer)
         {
             string customerCanSelection = "";
-            Can customerCanSelected;
-            List<Coin> paymentFromCustomer;
+            Can customerCanSelected = null;
+            List<Coin> paymentFromCustomer = new List<Coin>();
 
             customerCanSelection = UserInterface.SodaSelection(_inventory);
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
@@ -96,7 +96,7 @@ namespace SodaMachine
         {
             double paymentTotalValue = TotalCoinValue(payment);
             double changeTotalValue = 0;
-            List<Coin> changeGathered;
+            List<Coin> changeGathered = new List<Coin>();
 
             DepositCoinsIntoRegister(payment);
             
@@ -104,7 +104,8 @@ namespace SodaMachine
             {
                 //If the payment does not meet the cost of the soda: dispense payment back to the customer.
                 UserInterface.OutputText($"The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment of {paymentTotalValue} back from below.");
-                customer.AddCoinsIntoWallet(GatherChange(paymentTotalValue));
+                changeGathered = GatherChange(paymentTotalValue);
+                customer.AddCoinsIntoWallet(changeGathered);
             }
             else if (paymentTotalValue == chosenSoda.Price)
             {
@@ -140,8 +141,8 @@ namespace SodaMachine
         //If the change cannot be made, return null.
         private List<Coin> GatherChange(double changeValue)
         {
-            List<Coin> changeGathered = null;
-            Coin coinGathered;
+            List<Coin> changeGathered = new List<Coin>();
+            Coin coinGathered = new Coin();
 
             while (RegisterHasCoin("Quarter") && changeValue >= 0.25)
             {
@@ -191,7 +192,7 @@ namespace SodaMachine
         //Returns null if no coin can be found of that name.
         private Coin GetCoinFromRegister(string name)
         {
-            Coin coinToGrab;
+            Coin coinToGrab = new Coin();
 
             foreach (Coin coin in _register)
             {
