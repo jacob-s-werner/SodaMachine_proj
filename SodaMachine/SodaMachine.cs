@@ -80,19 +80,19 @@ namespace SodaMachine
         //It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
-            double paymentValueTotal = TotalCoinValue(payment);
+            double paymentTotalValue = TotalCoinValue(payment);
             double changeTotalValue = 0;
 
-            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentValueTotal - chosenSoda.Price)
+            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < paymentTotalValue - chosenSoda.Price)
             {
                 //If the payment is greater than the cost of the soda, but the machine does not have ample change: Despense payment back to the customer.
                 UserInterface.OutputText("The Vending Machine doesn't have enough change to give back - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your change back from below.");
                 customer.AddCoinsIntoWallet(payment);
             }
-            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) >= paymentValueTotal - chosenSoda.Price)
+            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) >= paymentTotalValue - chosenSoda.Price)
             {
                 //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
-                changeTotalValue = DetermineChange(paymentValueTotal, chosenSoda.Price);
+                changeTotalValue = DetermineChange(paymentTotalValue, chosenSoda.Price);
                 
                 DepositCoinsIntoRegister(payment);
                 UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
