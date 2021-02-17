@@ -152,19 +152,19 @@ namespace SodaMachine
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .25;
             }
-            while (RegisterHasCoin("Dime") && changeValue >= 0.10)
+            while (RegisterHasCoin("Dime") && changeNeeded >= 0.10)
             {
                 coinGathered = GetCoinFromRegister("Dime");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .10;
             }
-            while (RegisterHasCoin("Nickel") && changeValue >= 0.05)
+            while (RegisterHasCoin("Nickel") && changeNeeded >= 0.05)
             {
                 coinGathered = GetCoinFromRegister("Nickel");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .05;
             }
-            while (RegisterHasCoin("Penny") && changeValue >= 0.01)
+            while (RegisterHasCoin("Penny") && changeNeeded >= 0.01)
             {
                 coinGathered = GetCoinFromRegister("Penny");
                 changeGathered.Add(coinGathered);
