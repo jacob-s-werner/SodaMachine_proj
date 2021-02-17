@@ -215,5 +215,19 @@ namespace SodaMachine
                 _register.Add(coin);
             }
         }
+        private void AdministratorDepositCoinsIntoRegister(Coin coin, int numberOfCoinsToDeposit)
+        {
+            List<Coin> coinsToDeposit = null;
+
+            for (int i = 0; i < numberOfCoinsToDeposit; i++)
+            {
+                coinsToDeposit.Add(coin);
+            }
+            DepositCoinsIntoRegister(coinsToDeposit);
+        }
+        //private List<Can> AdministratorDepositCansIntoRegister()
+        //{
+
+        //}
     }
 }
