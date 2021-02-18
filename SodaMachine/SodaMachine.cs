@@ -144,9 +144,7 @@ namespace SodaMachine
             else if (Math.Round(paymentTotalValue,2) == Math.Round(chosenSoda.Price,2))
             {
                 //If the payment is exact to the cost of the soda:  Despense soda.
-                UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
-                customer.AddCanToBackpack(chosenSoda);
-                _inventory.Remove(chosenSoda);
+                CompleteTransaction(chosenSoda, customer, changeTotalValue);
             }
             else
             {
@@ -163,9 +161,7 @@ namespace SodaMachine
                 else 
                 {
                     //If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Despense soda, and change to the customer.
-                    UserInterface.EndMessage(chosenSoda.Name, changeTotalValue);
-                    customer.AddCanToBackpack(chosenSoda); 
-                    _inventory.Remove(chosenSoda);
+                    CompleteTransaction(chosenSoda, customer, changeTotalValue);
                     customer.AddCoinsIntoWallet(changeGathered);
                 }
             }
@@ -284,6 +280,12 @@ namespace SodaMachine
             {
                 _inventory.Add(can);
             }
+        }
+        private void CompleteTransaction(Can can, Customer customer, double changeGivenBack)
+        {
+            UserInterface.EndMessage(can.Name, changeGivenBack);
+            customer.AddCanToBackpack(can);
+            _inventory.Remove(can);
         }
     }
 }
