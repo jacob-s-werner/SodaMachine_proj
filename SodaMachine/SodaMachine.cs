@@ -102,7 +102,13 @@ namespace SodaMachine
 
             DepositCoinsIntoRegister(payment);
             
-            if (paymentTotalValue < chosenSoda.Price)
+            if (_inventory.Contains(chosenSoda) == false)
+            {
+                UserInterface.OutputText($"The Vending Machine doesn't have any more {chosenSoda.Name} in stock - TRANSACTION CANCELED.\nSorry for the Inconvenience! Take your payment of {paymentTotalValue} back from below.");
+                changeGathered = GatherChange(paymentTotalValue);
+                customer.AddCoinsIntoWallet(changeGathered);
+            }
+            else if (paymentTotalValue < chosenSoda.Price)
             {
                 //If the payment does not meet the cost of the soda: dispense payment back to the customer.
                 UserInterface.OutputText($"The payment does not meet the cost of the soda - TRANSACTION CANCELED. \nTake your payment of {paymentTotalValue} back from below.");
