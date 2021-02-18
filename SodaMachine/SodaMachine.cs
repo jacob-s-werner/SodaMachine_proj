@@ -148,7 +148,7 @@ namespace SodaMachine
 
             while (RegisterHasCoin("Quarter") && Math.Round(changeNeeded, 2) >= 0.25)
             {
-                coinGathered = GetCoinFromRegister("Quarter"); //_register.Remove(coinGathered); in GetCoinFromRegister
+                coinGathered = GetCoinFromRegister("Quarter");
                 changeGathered.Add(coinGathered);
                 changeNeeded -= .25;
             }
