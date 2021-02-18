@@ -234,7 +234,7 @@ namespace SodaMachine
                 totalCoinValue += coin.Value;
             }
 
-            return totalCoinValue;
+            return Math.Round(totalCoinValue,2);
         }
         //Puts a list of coins into the soda machines register.
         private void DepositCoinsIntoRegister(List<Coin> coins)
