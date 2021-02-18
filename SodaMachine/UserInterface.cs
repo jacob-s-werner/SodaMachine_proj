@@ -195,5 +195,10 @@ namespace SodaMachine
             }
             Console.ReadLine();
         }
+        public static void EndMessage(string sodaName, Card card)
+        {
+            Console.WriteLine($"Enjoy your {sodaName}.");
+            Console.WriteLine($"Your card balance is now {card.MoneyInAccount}.");
+        }
     }
 }
