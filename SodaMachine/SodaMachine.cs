@@ -65,6 +65,7 @@ namespace SodaMachine
         private void Transaction(Customer customer)
         {
             string customerCanSelection = "";
+            bool useCard;
             Can customerCanSelected = null;
             List<Coin> paymentFromCustomer = new List<Coin>();
 
@@ -72,10 +73,13 @@ namespace SodaMachine
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
             // give option to take card or coins if/else use userprompt for y/n
             // use OVERLOADING for calculating transaction with card
+            useCard = UserInterface.ContinuePrompt("Would you like to use a Credit Card for payment? (y/n)");
+
+
             paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
             CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
             UserInterface.DisplayTotalValueOfCoins(customer.Wallet.Coins);
-            UserInterface.OutputText($" You currently have {customer.Backpack.cans.Count} cans in your Backpack");
+            UserInterface.OutputText($"You currently have {customer.Backpack.cans.Count} cans in your Backpack");
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
