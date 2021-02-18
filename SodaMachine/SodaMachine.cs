@@ -103,6 +103,24 @@ namespace SodaMachine
 
         //This is the main method for calculating the result of the transaction.
         //It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
+        private void CalculateTransaction(Card card, Can chosenSoda, Customer customer)
+        {
+            if (_inventory.Contains(chosenSoda) == false)
+            {
+                UserInterface.OutputText($"The Vending Machine doesn't have any more {chosenSoda.Name} in stock - TRANSACTION CANCELED.\nSorry for the Inconvenience!");
+            }
+            else if (Math.Round(card.MoneyInAccount,2) < Math.Round(chosenSoda.Price,2))
+            {
+                UserInterface.OutputText($"Card Declined - TRANSACTION CANCELED.\nSorry for the Inconvenience!");
+            }
+            else
+            {
+                card.WithdrawMoney(chosenSoda.Price);
+                UserInterface.EndMessage(chosenSoda.Name, card);
+                customer.AddCanToBackpack(chosenSoda);
+                _inventory.Remove(chosenSoda);
+            }
+        }
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
             double paymentTotalValue = TotalCoinValue(payment);
