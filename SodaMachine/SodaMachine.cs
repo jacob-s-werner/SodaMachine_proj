@@ -74,6 +74,8 @@ namespace SodaMachine
             // use OVERLOADING for calculating transaction with card
             paymentFromCustomer = customer.GatherCoinsFromWallet(customerCanSelected);
             CalculateTransaction(paymentFromCustomer, customerCanSelected, customer);
+            UserInterface.DisplayTotalValueOfCoins(customer.Wallet.Coins);
+            UserInterface.OutputText($" You currently have {customer.Backpack.cans.Count} cans in your Backpack");
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)

@@ -26,7 +26,7 @@ namespace SodaMachine
             while (willProceed)
             {
                 _sodaMachine.BeginTransaction(_customer);
-                willProceed = UserInterface.ContinuePrompt("Continue to next transaction?");
+                willProceed = UserInterface.ContinuePrompt("Continue to next transaction? (y/n)");
                 Console.Clear();
             }
            
