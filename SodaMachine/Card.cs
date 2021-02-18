@@ -10,15 +10,26 @@ namespace SodaMachine
     {//Member Variables (Has A)
         protected double moneyInAccount;
         //Constructor (Spawner)
+        public double MoneyInAccount
+        {
+            get
+            {
+                return moneyInAccount;
+            }
+        }
         public Card()
         {
             DepositMoney();
         }
         //Member Methods (Can Do)
-        //Fills wallet with starting money
+        //Fills card with starting money
         private void DepositMoney()
         {
             moneyInAccount = 4;
+        }
+        public void WithdrawMoney(double amountToWithdraw)
+        {
+            moneyInAccount -= amountToWithdraw;
         }
     }
 }
