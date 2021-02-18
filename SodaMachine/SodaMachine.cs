@@ -173,33 +173,12 @@ namespace SodaMachine
         private List<Coin> GatherChange(double changeValue)
         {
             List<Coin> changeGathered = new List<Coin>();
-            Coin coinGathered = new Coin();
             double changeNeeded = changeValue;
-
-            while (RegisterHasCoin("Quarter") && Math.Round(changeNeeded, 2) >= 0.25)
-            {
-                coinGathered = GetCoinFromRegister("Quarter");
-                changeGathered.Add(coinGathered);
-                changeNeeded -= .25;
-            }
-            while (RegisterHasCoin("Dime") && Math.Round(changeNeeded, 2) >= 0.10)
-            {
-                coinGathered = GetCoinFromRegister("Dime");
-                changeGathered.Add(coinGathered);
-                changeNeeded -= .10;
-            }
-            while (RegisterHasCoin("Nickel") && Math.Round(changeNeeded, 2) >= 0.05)
-            {
-                coinGathered = GetCoinFromRegister("Nickel");
-                changeGathered.Add(coinGathered);
-                changeNeeded -= .05;
-            }
-            while (RegisterHasCoin("Penny") && Math.Round(changeNeeded, 2) >= 0.01)
-            {
-                coinGathered = GetCoinFromRegister("Penny");
-                changeGathered.Add(coinGathered);
-                changeNeeded -= .01;
-            }
+            
+            changeNeeded = GetCoinsFromRegisterToMatchChangeNeeded(changeGathered, changeNeeded, "Quarter", 0.25);
+            changeNeeded = GetCoinsFromRegisterToMatchChangeNeeded(changeGathered, changeNeeded, "Dime", 0.10);
+            changeNeeded = GetCoinsFromRegisterToMatchChangeNeeded(changeGathered, changeNeeded, "Nickel", 0.05);
+            changeNeeded = GetCoinsFromRegisterToMatchChangeNeeded(changeGathered, changeNeeded, "Penny", 0.01);
 
             if (Math.Round(TotalCoinValue(changeGathered),2) == Math.Round(changeValue,2))
             {
@@ -210,6 +189,18 @@ namespace SodaMachine
                 DepositCoinsIntoRegister(changeGathered);
                 return null;
             }
+        }
+        public double GetCoinsFromRegisterToMatchChangeNeeded(List<Coin> changeGathered, double changeNeeded, string coinName, double coinValue)
+        {
+            Coin coinGathered = new Coin();
+
+            while (RegisterHasCoin(coinName) && Math.Round(changeNeeded, 2) >= coinValue)
+            {
+                coinGathered = GetCoinFromRegister(coinName);
+                changeGathered.Add(coinGathered);
+                changeNeeded -= coinValue;
+            }
+            return changeNeeded;
         }
         //Reusable method to check if the register has a coin of that name.
         //If it does have one, return true.  Else, false.
