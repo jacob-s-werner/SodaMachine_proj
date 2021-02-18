@@ -71,12 +71,11 @@ namespace SodaMachine
 
             customerCanSelection = UserInterface.SodaSelection(_inventory);
             customerCanSelected = GetSodaFromInventory(customerCanSelection);
-            // give option to take card or coins if/else use userprompt for y/n
-            // use OVERLOADING for calculating transaction with card
             useCard = UserInterface.ContinuePrompt("Would you like to use a Credit Card for payment? (y/n)");
+            
             if (useCard)
             {
-
+                CalculateTransaction(customer.Wallet.creditCard, customerCanSelected, customer);
             }
             else
             {
