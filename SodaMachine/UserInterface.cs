@@ -124,7 +124,7 @@ namespace SodaMachine
                 Console.WriteLine("\nPlease choose from the following.");
                 for (int i = 0; i < uniqueCans.Count; i++)
                 {
-                    Console.WriteLine($"\n\tEnter -{i + 1}- for {uniqueCans[i].Name} : ${uniqueCans[i].Price}");
+                    Console.WriteLine($"\n\tEnter -{i + 1}- for {uniqueCans[i].Name} : ${Math.Round(uniqueCans[i].Price,2)}");
                 }
                 int.TryParse(Console.ReadLine(), out selection);
                 validatedSodaSelection = ValidateSodaSelection(selection, uniqueCans);
@@ -173,7 +173,7 @@ namespace SodaMachine
         public static void DisplayCost(Can selectedSoda)
         {
             Console.Clear();
-            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost {selectedSoda.Price} \n");
+            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost {Math.Round(selectedSoda.Price,2)} \n");
         }
         //Displays the total value of a list of coins.
         public static void DisplayTotalValueOfCoins(List<Coin> coinsToTotal)
@@ -191,14 +191,14 @@ namespace SodaMachine
             Console.WriteLine($"Enjoy your {sodaName}.");
             if(changeAmount > 0)
             {
-                Console.WriteLine($"Dispensing ${changeAmount} change.");
+                Console.WriteLine($"Dispensing ${Math.Round(changeAmount,2)} change.");
             }
             Console.ReadLine();
         }
         public static void EndMessage(string sodaName, Card card)
         {
             Console.WriteLine($"Enjoy your {sodaName}.");
-            Console.WriteLine($"Your card balance is now {card.MoneyInAccount}.");
+            Console.WriteLine($"Your card balance is now {Math.Round(card.MoneyInAccount,2)}.");
         }
     }
 }
